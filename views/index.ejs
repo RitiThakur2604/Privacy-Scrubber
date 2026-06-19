@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Privacy Scrubber</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { color: #2c3e50; }
+        .container {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 1rem;
+        }
+        .panel {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover { background-color: #c0392b; }
+        .btn-copy { background-color: #3498db; }
+        .btn-copy:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+    <h1>🔒 Enterprise Data Privacy Scrubber</h1>
+    <p>Paste sensitive documents below. All processing is done securely in memory.</p>
+
+    <div class="container">
+        <div class="panel">
+            <h3>Original Document</h3>
+            <form action="/redact" method="POST" style="display: flex; flex-direction: column; height: 100%;">
+                <textarea name="sensitiveDocument" placeholder="Paste text containing emails, phone numbers, SSNs, or credit cards here..."><%= originalText %></textarea>
+                <button type="submit" class="btn">Redact Document</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h3>Sanitized Output</h3>
+            <textarea id="outputBox" readonly placeholder="Your safe, redacted text will appear here..."><%= redactedText %></textarea>
+            <button onclick="copyText()" class="btn btn-copy">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        function copyText() {
+            const output = document.getElementById("outputBox");
+            if (output.value.trim() !== "") {
+                navigator.clipboard.writeText(output.value);
+                alert("Redacted text copied to clipboard!");
+            } else {
+                alert("Nothing to copy yet!");
+            }
+        }
+    </script>
+</body>
+</html>
