@@ -60,6 +60,7 @@ app.post('/redact', (req, res) => {
 });
 
 // --- 4. START THE SERVER ---
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Privacy Scrubber Engine running on http://localhost:${PORT}`);
 });
