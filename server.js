@@ -1,7 +1,6 @@
 import express from 'express';
 
 const app = express();
-const PORT = 3000;
 
 // --- 1. MIDDLEWARE (The Translators) ---
 app.set('view engine', 'ejs');
